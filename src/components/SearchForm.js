@@ -91,7 +91,7 @@ export default function SearchForm(props){
                 </div>
             </div>
             <Followers followers={followers} />
-            <Paginate link={paginate}/>
+            
         </Container>
 
     )
