@@ -1,5 +1,5 @@
 import React from "react"
-import { Container, Row, Col, Jumbotron } from "reactstrap"
+import { Container, Row, Col } from "reactstrap"
 
 export default function NoMatch(props){
 	return(

@@ -2,36 +2,52 @@ import React, { useState, useEffect } from 'react'
 import Followers from './Followers'
 import axios from 'axios';
 import ReactLoading from "react-loading";
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Col } from 'reactstrap';
 import Follower from './Follower'
 import Paginate from './Pagination'
+
 
 export default function SearchForm(props){    
     const [followers, setFollowers] = useState([]);
     const username = useFormInput('');
-    const width = useWindowWidth();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);    
     useDocumentTitle(username.value + ' followers');
-    const [paginate, setPaginate] = useState('')
+    const [paginate, setPaginate] = useState('');
+    const [number, setNumber] = useState(1);
 
     useEffect(() => {
         setFollowers([]);
+        setPaginate('');
+        setNumber(1);
         return () => {
             setFollowers([]);
+            setPaginate('');
+            setNumber(1);
         };
-    }, [username.value])
+    }, [username.value]);
 
-    function Search(e){
+    function paginateCustomSearch(page) {
+        getFollowers(page);
+    }
+
+    function getFollowers(page='') {
         setLoading(true);
         setFollowers([]);
+        let header = 'token  ff382855e81db05fa4b17215602067b7fd7f88c5';
         let url = 'https://api.github.com/users/' + username.value + '/followers';
-        axios.get(url)
+        if (page !== ''){
+            let re = /.+=/gi;
+            setNumber(page.replace(re, ''));
+            url = 'https://api.github.com/users/' + username.value + '/followers' + page;
+        }
+
+        axios.get(url, {headers: {"Authorization": header}})
             .then((data) => {
-                setPaginate(data.headers.link)
+                setPaginate(data.headers.link);
                 let mapfollowers = data.data.map((follower) => {
                     return (
-                        <Follower follower={follower} key={follower.id} />                        
+                        <Follower follower={follower} key={follower.id} />
                     )
                 });
                 setFollowers(mapfollowers);
@@ -41,7 +57,11 @@ export default function SearchForm(props){
             .catch(error => {
                 setLoading(false);
                 setError("username isn't registred in GitHub");
-            });        
+            });
+    }
+
+    function Search(e){
+        getFollowers();
         e.preventDefault()
     }
     let msgError;
@@ -90,6 +110,7 @@ export default function SearchForm(props){
                     {greetings}
                 </div>
             </div>
+            <Paginate link={paginate} paginateSearch={paginateCustomSearch} number={number} />
             <Followers followers={followers} />
             
         </Container>
@@ -116,14 +137,3 @@ function useDocumentTitle(title) {
     });
 }
 
-function useWindowWidth() {
-    const [width, setWidth] = useState(window.innerWidth);
-    useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        }
-    });
-    return width;
-}

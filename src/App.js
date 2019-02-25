@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Navigation from './components/Navigation'
-import SearchForm from './components/SearchForm'
 import {BrowserRouter as Router } from 'react-router-dom';
 
 import Routes from './components/Routes'
