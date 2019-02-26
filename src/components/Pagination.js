@@ -1,10 +1,24 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Row, Col, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 
-export default function Paginate(props){	
+export default function Paginate(props){
 	if (props.link === ''){
 		return '';
+	}
+	function setIcon(rel) {
+		switch (rel) {
+			case 'next':
+				return (<i class="fas fa-chevron-right"></i>);
+			case 'prev':
+				return (<i class="fas fa-chevron-left"></i>);
+			case 'first':
+				return (<i class="fas fa-step-backward "></i>);
+			case 'last':
+				return (<i class="fas fa-step-forward"></i>);
+			default:
+				return '';
+		}
 	}
 
 	function paginate(e){
@@ -21,7 +35,7 @@ export default function Paginate(props){
 		if (rel !== 'first' && rel !== 'last') {
 			return (
 				<PaginationItem key={index}>
-					<PaginationLink onClick={paginate} value={link}>{rel}</PaginationLink>
+					<PaginationLink onClick={paginate} value={link}>{setIcon(rel)}</PaginationLink>
 				</PaginationItem>
 			)
 		}
@@ -40,3 +54,5 @@ export default function Paginate(props){
 		</Row>
 		)
 }
+
+

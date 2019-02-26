@@ -34,7 +34,7 @@ export default function SearchForm(props){
     function getFollowers(page='') {
         setLoading(true);
         setFollowers([]);
-        let header = 'token  ff382855e81db05fa4b17215602067b7fd7f88c5';
+        let header = 'token  ';
         let url = 'https://api.github.com/users/' + username.value + '/followers';
         if (page !== ''){
             let re = /.+=/gi;
