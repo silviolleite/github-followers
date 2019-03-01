@@ -3,7 +3,6 @@ import { Container, Row } from 'reactstrap';
 
 
 export default function Followers(props){
-
         return (
         	<Container>
 	            <Row>

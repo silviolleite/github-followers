@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import Followers from './Followers'
 import axios from 'axios';
 import ReactLoading from "react-loading";
-import { Container, Col } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Follower from './Follower'
 import Paginate from './Pagination'
 
 
-export default function SearchForm(props){    
+export default function SearchForm(){
     const [followers, setFollowers] = useState([]);
     const username = useFormInput('');
     const [loading, setLoading] = useState(false);
@@ -56,7 +56,7 @@ export default function SearchForm(props){
             })
             .catch(error => {
                 setLoading(false);
-                setError("username isn't registred in GitHub");
+                setError("That username isn't registred in GitHub");
             });
     }
 
@@ -86,13 +86,13 @@ export default function SearchForm(props){
     }
     return (
         <Container>
-            <div className="row">
+            <Row>
                 <div className="col-md-12">
                     <form className="form-inline mt-5">
                         <label className="sr-only" htmlFor="inlineFormInputGroupUsername2">Username</label>
                         <div className="input-group mb-2 mr-sm-2">
                             <div className="input-group-prepend">
-                                <div className="input-group-text"><i className="fab fa-github"></i></div>
+                                <div className="input-group-text"><i className="fab fa-github"/></div>
                             </div>
                             <input type="text" className="form-control" id="username" name="username"
                                    placeholder="GitHub Username" {...username} />
@@ -101,15 +101,15 @@ export default function SearchForm(props){
                             </small>
                         </div>
 
-                        <button type="submit" className="btn btn-primary mb-2" onClick={Search}><i className="fas fa-search"></i></button>
+                        <button type="submit" className="btn btn-primary mb-2" onClick={Search}><i className="fas fa-search"/></button>
                     </form>
                 </div>
-            </div>
-            <div className="row">
+            </Row>
+            <Row>
                 <div className="col-md-12">
                     {greetings}
                 </div>
-            </div>
+            </Row>
             <Paginate link={paginate} paginateSearch={paginateCustomSearch} number={number} />
             <Followers followers={followers} />
             

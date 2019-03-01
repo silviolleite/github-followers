@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Row, Col, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 
+/**
+ * @return {string}
+ */
 export default function Paginate(props){
 	if (props.link === ''){
 		return '';
@@ -9,13 +12,13 @@ export default function Paginate(props){
 	function setIcon(rel) {
 		switch (rel) {
 			case 'next':
-				return (<i class="fas fa-chevron-right"></i>);
+				return (<i class="fas fa-chevron-right"/>);
 			case 'prev':
-				return (<i class="fas fa-chevron-left"></i>);
+				return (<i class="fas fa-chevron-left"/>);
 			case 'first':
-				return (<i class="fas fa-step-backward "></i>);
+				return (<i class="fas fa-step-backward "/>);
 			case 'last':
-				return (<i class="fas fa-step-forward"></i>);
+				return (<i class="fas fa-step-forward"/>);
 			default:
 				return '';
 		}

@@ -15,7 +15,7 @@ export default class Navigation extends Component{
                 {link.label}
             </Link>
         )
-    }
+    };
 
     render(){
         return(
@@ -24,7 +24,7 @@ export default class Navigation extends Component{
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"/>
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
